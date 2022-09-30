@@ -40,11 +40,11 @@ function getVersion(oldVersion) {
   }
 }
 
-function writeVersion(oldVersion) {
-  const applicationVersion = getVersion(oldVersion)
-  const data = { applicationVersion };
+function writeVersion(fileData) {
+  const applicationVersion = getVersion(fileData.applicationVersion);
+  const data = { ...fileData, applicationVersion };
 
-  fs.writeFile(filePath, JSON.stringify(data), 'utf8', err => {
+  fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8', err => {
     if (err) {
       console.log('Error occurred while update build version: ', err?.message);
       process.exit(1);
@@ -61,9 +61,9 @@ if (isFileExist) {
       console.log('Error occurred trying to read build version: ', err?.message);
       process.exit(1);
     }
-    const { applicationVersion } = JSON.parse(data);
+    const fileData = JSON.parse(data);
 
-    writeVersion(applicationVersion);
+    writeVersion(fileData);
   })
 } else {
   writeVersion();
