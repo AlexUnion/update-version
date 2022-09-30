@@ -12,9 +12,10 @@ const filePath = path.resolve(projDirectory, FILE_NAME);
 const isFileExist = fs.existsSync(filePath);
 
 function parseDate(_, value) {
-  return value.length === 1
-    ? `0${value}`
-    : value;
+  const str = value + '';
+  return str.length === 1
+    ? `0${str}`
+    : str;
 }
 
 function isValidVersion(version) {
@@ -24,8 +25,8 @@ function isValidVersion(version) {
 function getVersion(oldVersion) {
   const now = new Date();
 
-  const date = parseDate`${now.getDate() + ''}`;
-  const month = parseDate`${now.getMonth() + 1 + ''}`;
+  const date = parseDate`${now.getDate()}`;
+  const month = parseDate`${now.getMonth() + 1}`;
 
   const today = `${date}${month}${now.getFullYear()}`;
 
@@ -40,7 +41,7 @@ function getVersion(oldVersion) {
   }
 }
 
-function writeVersion(fileData) {
+function writeVersion(fileData = {}) {
   const applicationVersion = getVersion(fileData.applicationVersion);
   const data = { ...fileData, applicationVersion };
 
