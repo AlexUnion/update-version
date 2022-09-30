@@ -1,0 +1,28 @@
+{
+  "name": "update-version",
+  "version": "1.0.0",
+  "description": "Script to automatically update build version",
+  "main": "index.js",
+  "bin": {
+    "update-version": "bin/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/AlexUnion/update-version.git"
+  },
+  "keywords": [
+    "AUTO",
+    "UPDATE",
+    "BUILD",
+    "VERSION"
+  ],
+  "author": "alex2015mig@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexUnion/update-version/issues"
+  },
+  "homepage": "https://github.com/AlexUnion/update-version#readme"
+}
