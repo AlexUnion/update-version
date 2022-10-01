@@ -19,7 +19,7 @@ function parseDate(_, value) {
 }
 
 function isValidVersion(version) {
-  return typeof version === 'string' && version.split('.').length === 2;
+  return typeof version === 'string' && version.split('.').length === 3;
 }
 
 function getVersion(oldVersion) {
