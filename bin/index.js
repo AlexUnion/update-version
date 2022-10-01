@@ -19,7 +19,7 @@ function parseDate(_, value) {
 }
 
 function isValidVersion(version) {
-  return typeof version === 'string' && version.split('.').length === 3;
+  return typeof version === 'string' && version.split('.').length === 2;
 }
 
 function getVersion(oldVersion) {
@@ -31,26 +31,25 @@ function getVersion(oldVersion) {
   const today = `${date}${month}${now.getFullYear()}`;
 
   if (isValidVersion(oldVersion)) {
-    const [major, oldDate, buildNumber] = oldVersion.split('.');
+    const [major, buildNumber] = oldVersion.split('.');
 
-    return today === oldDate
-      ? `${major}.${today}.${Number(buildNumber) + 1}`
-      : `${major}.${today}.0`;
+    return `${major}.${Number(buildNumber) + 1}.${today}`
   } else {
-    return `1.${today}.0`;
+    return `1.0.${today}`;
   }
 }
 
 function writeVersion(fileData = {}) {
-  const applicationVersion = getVersion(fileData.applicationVersion);
-  const data = { ...fileData, applicationVersion };
+  const expo = fileData.expo ?? {};
+  const version = getVersion(expo.version);
+  const data = { ...fileData, expo: { ...expo, version } };
 
   fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8', err => {
     if (err) {
       console.log('Error occurred while update build version: ', err?.message);
       process.exit(1);
     } else {
-      console.log(`Build version update successfully. New version: ${applicationVersion}`);
+      console.log(`Build version update successfully. New version: ${version}`);
       process.exit(0);
     }
   });
